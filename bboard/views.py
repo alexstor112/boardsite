@@ -1,6 +1,8 @@
+from typing import Any
 from django.shortcuts import render
-
 from .models import Bb, Rubric
+from django.views.generic.edit import CreateView
+from .forms import BbForm
 
 def rubric_bbs(request, rubric_id):
     bbs = Bb.objects.filter(rubric=rubric_id)
@@ -14,3 +16,14 @@ def index(request):
     rubrics = Rubric.objects.all()
     context = {'bbs': bbs, 'rubrics': rubrics}
     return render(request, 'bboard/index.html', context)
+
+class bbCreateView(CreateView):
+    template_name = 'bboard/bb_create.html'
+    form_class = BbForm
+    success_url = '/bboard/'
+
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        context['rubrics'] = Rubric.objects.all()
+        return context
+    
