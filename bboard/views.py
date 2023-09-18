@@ -3,6 +3,7 @@ from django.shortcuts import render
 from .models import Bb, Rubric
 from django.views.generic.edit import CreateView
 from .forms import BbForm
+from django.urls import reverse_lazy
 
 def rubric_bbs(request, rubric_id):
     bbs = Bb.objects.filter(rubric=rubric_id)
@@ -17,10 +18,10 @@ def index(request):
     context = {'bbs': bbs, 'rubrics': rubrics}
     return render(request, 'bboard/index.html', context)
 
-class bbCreateView(CreateView):
+class BbCreateView(CreateView):
     template_name = 'bboard/bb_create.html'
     form_class = BbForm
-    success_url = '/bboard/'
+    success_url = reverse_lazy('index')
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
