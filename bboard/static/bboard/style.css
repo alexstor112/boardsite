@@ -2,7 +2,7 @@ head h1 {
     font-size: 40pt;
     text-transform: uppercase;
     text-align: center;
-    background: url("bg.jpg") left / auto 100% no-repeat;
+    background: url("bg.jpeg") left / auto 100% no-repeat;
 }
 nav {
     font-size: 16pt;
